@@ -9,7 +9,7 @@ class HelpCommand  < Command
       puts "usage: script.rb [--version] [command] [params]"
       puts
     
-      commands = Command.load_all
+      commands = ccm 'Command','load_all'
      
       puts "Commands currently implemented are:"
     

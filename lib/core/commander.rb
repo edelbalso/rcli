@@ -1,29 +1,17 @@
-require 'lib/core/traceable_object'
 require 'lib/core/command'
 require 'lib/core/cli_interface'
 
 class Commander
 
-  def self.CreateTraceableObject
-    obj = Commander.new
-    if APP_TRACE
-      return TraceableObject.new(obj)
-    else
-      return obj
-    end
-  end
-  
   def initialize
-    s
-    @commands = Command.load_all
-    @cli_interface = CliInterface.new
-    f
+    @commands = ccm('Command','load_all')
+    @cli_interface = TraceableFactory.createTraceableObject('CliInterface')
   end
 
   def go
-    s
+
     if ARGV.size == 0
-      ARGV.push Command.default_cmd # default action
+      ARGV.push ccm('Command','default_cmd') # default action
     end
 
     if ARGV.first == '--version'
@@ -53,7 +41,6 @@ class Commander
 
     @commands[command][:instance].run(:args => args,:no_dash_args =>no_dash_args)
     
-    f
   end
 
 end
