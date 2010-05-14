@@ -1,0 +1,5 @@
+#config/application.yml
+global:
+    script_name: script
+    hidden_dir_name: .writer
+    default_command: help

@@ -1,0 +1,4 @@
+REQUIREMENTS
+------------
+sudo gem install highline
+sudo gem install text
