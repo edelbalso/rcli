@@ -5,9 +5,8 @@ class HelpCommand  < Command
   end
 
   def main
-    if @params[:no_dash_args].size == 0
-      puts "usage: script.rb [--version] [command] [params]"
-      puts
+    if @params[:args].size == 0
+      puts @help_banner
     
       commands = ccm 'Command','load_all'
      

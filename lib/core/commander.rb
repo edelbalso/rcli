@@ -9,7 +9,6 @@ class Commander
   end
 
   def go
-
     if ARGV.size == 0
       ARGV.push ccm('Command','default_cmd') # default action
     end
@@ -23,7 +22,7 @@ class Commander
     end
 
     if ARGV.first[0,1] !~ /^[a-zA-z]$/ 
-      puts "ERROR: Please specify a command"
+      puts "ERROR: Please specify a command as first argument"
       exit
     end
 
@@ -36,10 +35,10 @@ class Commander
 
     # Separate arguments into those preceded by dashes (usually options or flags)
     # and those not preceded by dashes (usually files)
-    args = ARGV.collect { |arg| arg if arg[0,1] == '-' }.compact
-    no_dash_args = ARGV.collect { |arg| arg if arg[0,1] != '-'}.compact
+    opts = ARGV.collect { |arg| arg if arg[0,1] == '-' }.compact
+    args = ARGV.collect { |arg| arg if arg[0,1] != '-'}.compact
 
-    @commands[command][:instance].run(:args => args,:no_dash_args =>no_dash_args)
+    @commands[command][:instance].run(:opts => opts,:args =>args)
     
   end
 
