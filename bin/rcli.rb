@@ -1,41 +1,39 @@
 #!/usr/bin/env ruby
 
-BASEDIR = '/Users/edu/lib/ruby/cliscript'
 
-$LOAD_PATH << BASEDIR
+require 'pathname'
+RCLI_PATH = '/Users/edu/lib/ruby/cliscript'
+tmp = File.dirname(Pathname.new(__FILE__).realpath)
+tmp = tmp.split(File::SEPARATOR)
+tmp.pop
+SCRIPT_PATH = tmp.join(File::SEPARATOR)
+
+$LOAD_PATH << RCLI_PATH
+
+# If we're in a generated script, want to load both commands
+if SCRIPT_PATH != RCLI_PATH
+  $LOAD_PATH << SCRIPT_PATH
+end
 
 
 ### Core Libraries
 require 'rubygems'
 require 'text'
+require 'YAML'
 require 'pp'
-
 
 ### GLOBALS
 $verbose = false # set to true by command line
 TRACE_APP = false
 
-
-### GLOBAL SHORTCUTS
-DS = File::SEPARATOR # / on unix, \ on windows. DS is a shortcut and faster to type
-
-# shortcut to call a class method that you would like to be traceable
-def ccm(className, sym, *args, &block)
-  TraceableObject.call_class_method(className, sym, *args, &block)
-end
-# shortcut to instantiate a traceable object
-def cto(className)
-  TraceableFactory.createTraceableObject(className)
-end
-
+require 'lib/core/global_functions'
 
 ### Application Libraries
 # require 'lib/core/tracer'
 require 'lib/core/traceable_factory'
 require 'lib/core/commander'
 
-
-APP_CONFIG = YAML.load_file(BASEDIR + '/config/application.yaml')
+APP_CONFIG = YAML.load_file(RCLI_PATH + '/config/application.yaml')
 
 
 # ==========================================================
