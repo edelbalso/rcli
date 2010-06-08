@@ -10,19 +10,15 @@ class ExampleCommand  < Command
   end
   
   def main
-    options = parse_parameters
-
-    $verbose= options.verbose
-
-    @local.load_lib    
-    
-    if @params[:no_dash_args].size == 0
-      @cli_interface.list_local_artists_to_add(@local.artists)
-    else
-      @params[:no_dash_args].each do |fs_key|
-        list_fs_key(fs_key)
-      end
-    end
+    # @local.load_lib    
+    # 
+    # if @params[:no_dash_args].size == 0
+    #   @cli_interface.list_local_artists_to_add(@local.artists)
+    # else
+    #   @params[:no_dash_args].each do |fs_key|
+    #     list_fs_key(fs_key)
+    #   end
+    # end
   end
 
 
