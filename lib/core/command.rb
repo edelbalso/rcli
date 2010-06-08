@@ -6,8 +6,10 @@ class Command
   attr_reader :description
 
   def initialize
+    before_init
     @description = "Current action not described. Please override " + self.class.to_s + "::@description in after_init."
     @params = {}
+    @options = nil
     @help_banner = <<EOS
 usage: script.rb example
       Lists all the folders in the current directory
@@ -20,31 +22,32 @@ EOS
 
   def run(params = {})
     before_main
+
     @params = params
+
+    @options = parse_parameters
+    $verbose= @options.verbose
+
     main
+
+    after_main
   end
 
   def main
     puts "ERROR: main() method not defined for this command. Please define " + self.class.to_s + "::main() to continue."
   end
 
-  # def help
-  #   puts "ERROR: help() method not defined. Please override " + self.class.to_s + "::help() to continue"
-  # end
-  # 
-
   def help
     ARGV.push('-h')
     opts = parse_parameters
   end
   
-  def before_main
-    #should be over-ridden in Command classes.
-  end
+  #should be over-ridden in Command classes.
+  def before_main; end
+  def after_main; end
 
-  def after_init
-    #should be over-ridden in Command classes.
-  end
+  def before_init; end
+  def after_init; end
 
 
   #### CLASS METHODS #####
@@ -52,9 +55,11 @@ EOS
     commands = {}
 
     ccm('Command','get_allowed_commands').each do |c|
-      require 'lib/commands/' + c
+      
+      require SCRIPT_PATH + '/lib/commands/' + c if File.exist?(SCRIPT_PATH + '/lib/commands/' + c + '.rb')
+      require RCLI_PATH + '/lib/commands/' + c if File.exist?(RCLI_PATH + '/lib/commands/' + c + '.rb')
       commands[c] = {
-        :instance => TraceableFactory.createTraceableObject("#{c.capitalize}Command")
+        :instance => TraceableFactory.createTraceableObject(camelize(c) + "Command")
       }
     end
 
@@ -65,9 +70,10 @@ EOS
     commands = {}
 
     if Command.get_allowed_commands.include?(command) 
-      require 'lib/commands/' + command
+      require SCRIPT_PATH + '/lib/commands/' + command if File.exist?(SCRIPT_PATH + '/lib/commands/' + command + '.rb')
+      require RCLI_PATH + '/lib/commands/' + command if File.exist?(RCLI_PATH + '/lib/commands/' + command + '.rb')
       commands[command] = {
-        :instance => TraceableFactory.createTraceableObject("#{command.capitalize}Command")
+        :instance => TraceableFactory.createTraceableObject("#{camelize(command)}Command")
       }
     end
 
@@ -75,7 +81,11 @@ EOS
   end
 
   def self.get_allowed_commands
-    Dir[BASEDIR + '/lib/commands/*'].collect{ |c| File.basename(c,'.rb')}
+    results = Array.new
+    Dir[RCLI_PATH + '/lib/commands/*'].each{ |c| results << File.basename(c,'.rb')}
+    Dir[SCRIPT_PATH + '/lib/commands/*'].each{ |c| results << File.basename(c,'.rb')}
+
+    results
   end
 
 private
