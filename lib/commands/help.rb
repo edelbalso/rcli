@@ -8,7 +8,7 @@ class HelpCommand  < Command
     if @params[:args].size == 0
       puts @help_banner
     
-      commands = ccm 'Command','load_all'
+      commands = Command.load_all
      
       puts "Commands currently implemented are:"
     
@@ -23,7 +23,7 @@ class HelpCommand  < Command
       puts 
       puts "Type 'script help COMMAND' for instructions on using a specific command"
     else
-      cmd = Command.load(@params[:no_dash_args][0])
+      Command.load(@params[:no_dash_args][0])
       
       cmd[@params[:no_dash_args][0]][:instance].help
     end

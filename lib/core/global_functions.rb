@@ -1,11 +1,11 @@
-# shortcut to call a class method that you would like to be traceable
-def ccm(className, sym, *args, &block)
-  TraceableObject.call_class_method(className, sym, *args, &block)
-end
-# shortcut to instantiate a traceable object
-def cto(className)
-  TraceableFactory.createTraceableObject(className)
-end
+# # shortcut to call a class method that you would like to be traceable
+# def ccm(className, sym, *args, &block)
+#   TraceableObject.call_class_method(className, sym, *args, &block)
+# end
+# # shortcut to instantiate a traceable object
+# def cto(className)
+#   TraceableFactory.createTraceableObject(className)
+# end
 
 def camelize(lower_case_and_underscored_word, first_letter_in_uppercase = true)
   if first_letter_in_uppercase

@@ -36,9 +36,9 @@ class TraceableObject
   end
 
   def self.call_class_method(className, sym, *args, &block)
-    self.before_trace(className, sym) if Rcli::TRACE_APP
+    self.before_trace(className, sym) if Rcli.trace_app
     retval = Object.const_get( className ).send sym, *args, &block
-    self.after_trace(className, sym) if Rcli::TRACE_APP
+    self.after_trace(className, sym) if Rcli.trace_app
     retval
   end
   

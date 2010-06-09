@@ -1,16 +1,16 @@
-require 'lib/core/command'
-require 'lib/core/cli_interface'
+require 'core/command'
+require 'core/cli_interface'
 
 class Commander
 
-  def initialize(script_path)
-    @commands = ccm('Command','load_all',script_path)
-    @cli_interface = TraceableFactory.createTraceableObject('CliInterface')
+  def initialize
+    @commands = Command.load_all
+    @cli_interface = CliInterface.new
   end
 
   def go
     if ARGV.size == 0
-      ARGV.push ccm('Command','default_cmd') # default action
+      ARGV.push Command.default_cmd # default action
     end
 
     if ARGV.first == '--version'

@@ -1,6 +1,3 @@
-require 'optparse'
-require 'ostruct'
-
 class Command
 
   attr_reader :description
@@ -18,7 +15,7 @@ EOS
     after_init
   end
 
-  def self.default_cmd; APP_CONFIG['global']['default_command']; end
+  def self.default_cmd; Rcli::APP_CONFIG['global']['default_command']; end
 
   def run(params = {})
     before_main
@@ -51,27 +48,28 @@ EOS
 
 
   #### CLASS METHODS #####
-  def self.load_all(path)
+  def self.load_all
     commands = {}
 
-    ccm('Command','get_allowed_commands').each do |c|
-      
-      require path + '/lib/commands/' + c if File.exist?(path + '/lib/commands/' + c + '.rb')
+    Command.get_allowed_commands.each do |c|
+      require Rcli.script_root + '/lib/commands/' + c if File.exist?(Rcli.script_root + '/lib/commands/' + c + '.rb')
       commands[c] = {
-        :instance => TraceableFactory.createTraceableObject(camelize(c) + "Command")
+#        :instance => TraceableFactory.createTraceableObject(camelize(c) + "Command")
+        :instance => Object.const_get("#{camelize(c)}Command").new
       }
     end
 
     commands
   end
 
-  def self.load(command,path)
+  def self.load(command)
     commands = {}
 
     if Command.get_allowed_commands.include?(command) 
-      require path + '/lib/commands/' + command if File.exist?(path + '/lib/commands/' + command + '.rb')
+      require Rcli.script_root + '/lib/commands/' + command if File.exist?(Rcli.script_root + '/lib/commands/' + command + '.rb')
       commands[command] = {
-        :instance => TraceableFactory.createTraceableObject("#{camelize(command)}Command")
+#        :instance => TraceableFactory.createTraceableObject("#{camelize(command)}Command")
+        :instance => Object.const_get("#{camelize(command)}Command").new
       }
     end
 
@@ -80,7 +78,9 @@ EOS
 
   def self.get_allowed_commands
     results = Array.new
-    Dir[path + '/lib/commands/*'].each{ |c| results << File.basename(c,'.rb')}
+    
+    glob = Rcli.script_root + DS + 'lib' + DS + 'commands' + DS + '*'
+    Dir[glob].each{ |c| results << File.basename(c,'.rb')}
 
     results
   end

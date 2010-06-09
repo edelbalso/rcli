@@ -1,17 +1,17 @@
-require 'lib/core/traceable_object'
+require 'core/traceable_object'
 
 class TraceableFactory
 
-  def self.createTraceableObject( className )
+  def self.createTraceableObject( className, *args )
 
-    TraceableObject.before_init(className) if Rcli::TRACE_APP
+    TraceableObject.before_init(className) if Rcli.trace_app
     
-    obj = Object.const_get( className ).new
+    obj = Object.const_get( className ).new(*args)
     
-    TraceableObject.after_init(className) if Rcli::TRACE_APP
+    TraceableObject.after_init(className) if Rcli.trace_app
 
-    if Rcli::TRACE_APP
-      return TraceableObject.new(obj)
+    if Rcli.trace_app
+      return TraceableObject.new(obj,*args)
     else
       return obj
     end
