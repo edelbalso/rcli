@@ -1,4 +1,3 @@
-
 class CliInterface
 
   def initialize

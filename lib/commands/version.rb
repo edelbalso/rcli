@@ -1,5 +1,3 @@
-require 'lib/vendor/trollop'
-
 class VersionCommand  < Command
   
   def after_init
