@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+
+require 'rcli'
+
+# require 'pathname'
+# tmp = 
+# tmp = tmp.split(File::SEPARATOR)
+# tmp.pop
+# SCRIPT_ROOT = File.dirname(File.dirname(Pathname.new(__FILE__).realpath))
+
+# SCRIPT_ROOT = Pathname(__FILE__).realpath.parent.parent
+
+### GLOBALS
+# Rcli::TRACE_APP = true
+
+APP_CONFIG = YAML.load_file(Rcli::GEM_ROOT + '/config/application.yaml')
+
+
+# ==========================================================
+# This code will only execute if this file is the file
+# being run from the command line.
+if $0 == __FILE__
+
+  commander = TraceableFactory.createTraceableObject('Commander', Pathname(__FILE__).realpath.parent.parent)
+  commander.go
+
+end
