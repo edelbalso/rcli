@@ -7,12 +7,8 @@ Gem::Specification.new do |s|
   s.email = "e.delbalso@gmail.com"
   s.homepage = "http://github.com/edelbalso/rcli"
 
-  s.specification_version = 2 if s.respond_to? :specification_version=
-  s.rubygems_version = %q{1.3.7}
-
-  s.files = <%= Dir['lib/**/*.rb', 'README*', 'LICENSE', 'Rakefile', 'test/**/*.*', 'bin/**/*.rb'].inspect %>
+  s.files = <%= Dir['lib/**/*.*', 'README*', 'LICENSE', 'Rakefile', 'test/**/*.*', 'bin/**/*.rb'].inspect %>
   s.executables = ['rcli']
   s.require_paths = ['lib']
 
-  s.has_rdoc = false
 end
