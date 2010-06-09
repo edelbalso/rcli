@@ -51,13 +51,12 @@ EOS
 
 
   #### CLASS METHODS #####
-  def self.load_all
+  def self.load_all(path)
     commands = {}
 
     ccm('Command','get_allowed_commands').each do |c|
       
-      require SCRIPT_PATH + '/lib/commands/' + c if File.exist?(SCRIPT_PATH + '/lib/commands/' + c + '.rb')
-      require RCLI_PATH + '/lib/commands/' + c if File.exist?(RCLI_PATH + '/lib/commands/' + c + '.rb')
+      require path + '/lib/commands/' + c if File.exist?(path + '/lib/commands/' + c + '.rb')
       commands[c] = {
         :instance => TraceableFactory.createTraceableObject(camelize(c) + "Command")
       }
@@ -66,12 +65,11 @@ EOS
     commands
   end
 
-  def self.load(command)
+  def self.load(command,path)
     commands = {}
 
     if Command.get_allowed_commands.include?(command) 
-      require SCRIPT_PATH + '/lib/commands/' + command if File.exist?(SCRIPT_PATH + '/lib/commands/' + command + '.rb')
-      require RCLI_PATH + '/lib/commands/' + command if File.exist?(RCLI_PATH + '/lib/commands/' + command + '.rb')
+      require path + '/lib/commands/' + command if File.exist?(path + '/lib/commands/' + command + '.rb')
       commands[command] = {
         :instance => TraceableFactory.createTraceableObject("#{camelize(command)}Command")
       }
@@ -82,8 +80,7 @@ EOS
 
   def self.get_allowed_commands
     results = Array.new
-    Dir[RCLI_PATH + '/lib/commands/*'].each{ |c| results << File.basename(c,'.rb')}
-    Dir[SCRIPT_PATH + '/lib/commands/*'].each{ |c| results << File.basename(c,'.rb')}
+    Dir[path + '/lib/commands/*'].each{ |c| results << File.basename(c,'.rb')}
 
     results
   end

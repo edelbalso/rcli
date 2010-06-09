@@ -3,8 +3,8 @@ require 'lib/core/cli_interface'
 
 class Commander
 
-  def initialize
-    @commands = ccm('Command','load_all')
+  def initialize(script_path)
+    @commands = ccm('Command','load_all',script_path)
     @cli_interface = TraceableFactory.createTraceableObject('CliInterface')
   end
 
