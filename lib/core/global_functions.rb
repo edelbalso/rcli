@@ -1,6 +1,3 @@
-### GLOBAL SHORTCUTS
-DS = File::SEPARATOR # / on unix, \ on windows. DS is a shortcut and faster to type
-
 # shortcut to call a class method that you would like to be traceable
 def ccm(className, sym, *args, &block)
   TraceableObject.call_class_method(className, sym, *args, &block)
