@@ -3,4 +3,4 @@
 joe gemspec
 gem build rcli.gemspec
 gem uninstall -x rcli
-gem install rcli-0.0.1.gem
+gem install rcli-0.6.gem

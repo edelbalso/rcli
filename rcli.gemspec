@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'rcli'
-  s.version = '0.0.1'
+  s.version = '0.6'
   s.summary = %{A rough framework for building command-line scripts in ruby.}
   s.date = %q{2010-06-08}
   s.author = "Eduardo Del Balso"
