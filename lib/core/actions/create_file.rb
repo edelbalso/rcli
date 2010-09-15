@@ -20,20 +20,24 @@ class Rcli
     #
     #   create_file "config/apach.conf", "your apache config"
     #
-    def create_file(destination, data=nil, config={}, &block)
-      action CreateFile.new(self, destination, block || data.to_s, config)
+    def create_file(destination, data=nil, &block)
+      cf = CreateFile.new(destination, block || data.to_s)
+      cf.create
     end
+    
     alias :add_file :create_file
 
     # AddFile is a subset of Template, which instead of rendering a file with
     # ERB, it gets the content from the user.
     #
-    class CreateFile < EmptyDirectory #:nodoc:
+    class CreateFile #:nodoc:
       attr_reader :data
 
-      def initialize(base, destination, data, config={})
+      def initialize(destination, data)
         @data = data
-        super(base, destination, config)
+        @destination = destination
+        @empty_dir = EmptyDirectory.new(File.dirname(destination))
+
       end
 
       # Checks if the content of the file at the destination is identical to the rendered result.
@@ -47,7 +51,7 @@ class Rcli
 
       # Holds the content to be added to the file.
       #
-      def render
+      def contents
         @render ||= if data.is_a?(Proc)
           data.call
         else
@@ -55,12 +59,11 @@ class Rcli
         end
       end
 
-      def invoke!
-        invoke_with_conflict_check do
-          FileUtils.mkdir_p(File.dirname(destination))
-          File.open(destination, 'wb') { |f| f.write render }
-        end
-        given_destination
+      def create
+        
+        @empty_dir.create
+        File.open(@destination, 'wb') { |f| f.write contents }
+        
       end
 
       protected
