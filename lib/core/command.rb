@@ -31,7 +31,7 @@ EOS
   end
 
   def main
-    puts "ERROR: main() method not defined for this command. Please define " + self.class.to_s + "::main() to continue."
+    puts "ERROR: main() method not defined for this command. Please define " + self.class.to_s + "#main() to continue."
   end
 
   def help
