@@ -43,7 +43,7 @@ and you should be good to go. Try:
 If you don't get a page full of exceptions, you're good to go. If so,
 get in touch with me and I will help you out.
 
-## ADVANCED INSTAlLATION
+## ADVANCED INSTALLATION
 
 *WARNING! WARNING!*
 
@@ -172,6 +172,11 @@ view any other gem installed on your system.
 
 Congrats, you've made your first command-line app with rcli.
 
+## TO DO 
+
+* Trollop is being used to parse commands. I need to clean up command-level 
+customization of trollop
+* Wrap shell commands provided by highline into something clean.
 
 ## DEPENDENCIES
 
