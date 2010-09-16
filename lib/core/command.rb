@@ -50,14 +50,21 @@ EOS
   #### CLASS METHODS #####
   def self.load_all
     commands = {}
-
+    
+    require Rcli::GEM_LIB + DS + 'commands' + DS + 'debug'
+    require Rcli::GEM_LIB + DS + 'commands' + DS + 'help'
+    commands['debug'] = { :instance => DebugCommand.new }
+    commands['help'] = { :instance => HelpCommand.new }
+    
     Command.get_allowed_commands.each do |c|
-      require Rcli.script_root + '/lib/commands/' + c if File.exist?(Rcli.script_root + '/lib/commands/' + c + '.rb')
+      require Rcli.script_root + DS + 'lib' + DS + 'commands' + DS + c if File.exist?(Rcli.script_root + DS + 'lib' + DS + 'commands' + DS + c + '.rb')
       commands[c] = {
 #        :instance => TraceableFactory.createTraceableObject(camelize(c) + "Command")
         :instance => Object.const_get("#{camelize(c)}Command").new
       }
     end
+    
+    
 
     commands
   end
