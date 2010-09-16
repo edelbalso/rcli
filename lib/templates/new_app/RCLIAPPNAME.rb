@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-
 require 'rubygems'
 require 'rcli'
 
@@ -7,5 +6,4 @@ require 'rcli'
 
 ### LAUNCH RCLIAPPNAME
 Rcli.script_root = Pathname(__FILE__).realpath.parent.to_s
-commander = Commander.new
-commander.go
+Commander.new.go

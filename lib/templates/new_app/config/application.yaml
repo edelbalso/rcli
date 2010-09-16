@@ -1,5 +1,0 @@
-#config/application.yml
-global:
-    script_name: RCLIAPPNAME
-    hidden_dir_name: .RCLIAPPNAME
-    default_command: help

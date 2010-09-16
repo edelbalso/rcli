@@ -1,0 +1,14 @@
+#config/application.yml
+global:
+    # 'multi' mode 
+    #    Used for script <command> style scripts (such as git) with multiple 
+    #    commands. Commands are defined in the 'lib/commands/' folder.
+    #
+    # 'single' mode
+    #    For traditional  normal scripts. Please note that single mode commands
+    #    will ignore all commands in the command folder.
+    mode: single
+    script_name: RCLIAPPNAME
+    hidden_dir_name: .RCLIAPPNAME
+    default_command: default
+    description: Please edit config/application.yml for RCLIAPPNAME to update description.
