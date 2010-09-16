@@ -26,22 +26,22 @@ class InstallCommand  < Command
       unless File.executable_real? @params[:args][0]
         puts "ERROR: The script you're trying to install is not executable. Please type 'rcli install help' for proper usage."
       end
-      if File.exists? Rcli::APP_DOTFOLDER + DS + 'bin' + DS + @params[:args][1]
+      if File.exists? Rcli::RCLI_DOTFOLDER + DS + 'bin' + DS + @params[:args][1]
         puts "ERROR: The install name for that script is already taken"
         exit
       end
             
-      unless FileUtils.ln_s(File.expand_path(@params[:args][0]),Rcli::APP_DOTFOLDER + DS + 'bin' + DS + @params[:args][1])
+      unless FileUtils.ln_s(File.expand_path(@params[:args][0]),Rcli::RCLI_DOTFOLDER + DS + 'bin' + DS + @params[:args][1])
         puts "ERROR: There was a problem installing " + @params[:args][1]
         exit
       end
       
-      unless File.open(File.expand_path(Rcli::APP_DOTFOLDER + DS + 'app_info' + DS + @params[:args][1] + '.yml'),'w') { |f|
+      unless File.open(File.expand_path(Rcli::RCLI_DOTFOLDER + DS + 'app_info' + DS + @params[:args][1] + '.yml'),'w') { |f|
           f << 'application_root: ' + File.dirname(File.expand_path(@params[:args][0])) + "\n"
           f << 'executable: ' + File.basename(File.expand_path(@params[:args][0]))
         }
         puts "ERROR: There was a problem installing " + @params[:args][1]
-        FileUtils.rm(File.expand_path(@params[:args][0]),Rcli::APP_DOTFOLDER + DS + 'bin' + DS + @params[:args][1])
+        FileUtils.rm(File.expand_path(@params[:args][0]),Rcli::RCLI_DOTFOLDER + DS + 'bin' + DS + @params[:args][1])
         exit
       end
         

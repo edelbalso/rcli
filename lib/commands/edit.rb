@@ -15,8 +15,8 @@ class EditCommand < Command
         exec "mate #{Rcli::SRC_PATH}"
         exit
       end
-        
-      yml_file = Rcli::APP_DOTFOLDER + DS + 'app_info' + DS + @params[:args][0] + '.yml'
+      
+      yml_file = Rcli::RCLI_DOTFOLDER + DS + 'app_info' + DS + @params[:args][0] + '.yml'
       unless File.exists? yml_file
         puts "ERROR: That app is not installed"
         exit
