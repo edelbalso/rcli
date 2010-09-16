@@ -1,7 +1,7 @@
 class CompileCommand < Command
   
   def before_init
-    @description = 'Uninstalls and reinstalls rcli to your system from source. YMMV'
+    @description = 'Uninstalls and reinstalls rcli gem to your system from source. YMMV'
   end
   
   def main
