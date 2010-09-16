@@ -1,18 +1,12 @@
 require 'core/command'
-require 'core/cli_interface'
 
 class Commander
 
   def initialize
     @commands = Command.load_all
-    @cli_interface = CliInterface.new
   end
 
   def go
-    if ARGV.size == 0
-      ARGV.push Command.default_cmd # default action
-    end
-
     if ARGV.first == '--version'
       ARGV[0] = 'version' # simulate 'script --version' functionality
     end
@@ -21,7 +15,16 @@ class Commander
       ARGV[0] = 'help' # catch help requests.
     end
 
-    if ARGV.first[0,1] !~ /^[a-zA-z]$/ 
+    if Rcli.script_config['global']['mode'] == 'multi' && ARGV.size == 0 
+      ARGV.push Command.default_cmd # default action
+    end
+    
+
+    if Rcli.script_config['global']['mode'] == 'single'
+      if ARGV[0] != 'help' && ARGV[0] != 'version' && ARGV[0] != 'debug'
+        ARGV.insert( 0, Command.default_cmd)
+      end
+    elsif ARGV.first[0,1] !~ /^[a-zA-z]$/ 
       puts "ERROR: Please specify a command as first argument"
       exit
     end
