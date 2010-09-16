@@ -4,30 +4,32 @@ class Command
 
   def initialize
     before_init
-    @description = "Current action not described. Please override " + self.class.to_s + "::@description in after_init."
     @params = {}
     @options = nil
-    @help_banner = <<EOS
-usage: script.rb example
-      Lists all the folders in the current directory
 
-EOS
+    if Rcli.script_config['global']['type'] == 'multi'
+      @description = "Current action not described. Please override " + self.class.to_s + "::@description in after_init."
+      @usage = "usage: #{Rcli.script_config['global']['script_name']} <command> [--flags,-f] arg1 arg2 arg3 "
+    else
+      @description = Rcli.script_config['global']['description'] 
+      @usage = "usage: #{Rcli.script_config['global']['script_name']} [--flags,-f] arg1 arg2 arg3 "
+    end
+
     after_init
   end
 
-  def self.default_cmd; Rcli::APP_CONFIG['global']['default_command']; end
+  def self.default_cmd; Rcli.script_config['global']['default_command']; end
 
   def run(params = {})
-    before_main
-
     @params = params
 
     @options = parse_parameters
     $verbose= @options.verbose
 
+    before_main
     main
-
     after_main
+
   end
 
   def main
