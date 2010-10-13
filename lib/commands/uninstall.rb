@@ -4,10 +4,8 @@ class UninstallCommand  < Command
   
   include Rcli::Installation
   
-  def after_init
-    @description = "Uninstalls rcli from your system, or uninstalls a specific rcli app"
-  end
-  
+  description "Uninstalls rcli from your system, or uninstalls a specific rcli app"
+
   def main()
     
     if $verbose

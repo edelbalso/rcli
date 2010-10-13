@@ -1,11 +1,9 @@
 class GenerateCommand  < Command
   
   include Rcli::Actions
-  
-  def after_init
-    @description = "Generates a template CLI script in current folder"
-  end
-  
+
+  description "Generates a template CLI script in current folder"
+
   def main()
         
     if @params[:args].length != 1
@@ -42,24 +40,4 @@ class GenerateCommand  < Command
     end
   end
 
-  private
-    def parse_parameters
-      # This works with the global ARGV, so no parameters passed.
-      begin
-        opts = Trollop::options do
-        banner <<-EOS
-usage: rcli generate [-v]
-
-EOS
-          opt :verbose, "Run with extra debugging output", :default => false
-        end
-      rescue Trollop::HelpNeeded
-        exit # stop if help is being displayed
-      end
-
-      $verbose = opts.verbose
-
-      # puts "Verbose is : " + $verbose.inspect
-      opts
-    end
 end

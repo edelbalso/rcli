@@ -1,14 +1,8 @@
 class DebugCommand  < Command
   
-  def after_init
-    # called after Command::initialize
-    @description = "Dumps debug variables"
-  end
+  description "Dumps debug variables"
+  usage "rcli debug [console]"
 
-  def before_main
-    # called right before the command's ::main() function
-  end
-  
   def main
     allowed_commands = ['console']
     if @params[:args].size == 0

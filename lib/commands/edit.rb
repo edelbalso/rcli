@@ -1,9 +1,8 @@
 class EditCommand < Command
   
-  def after_init
-    @description = "Opens a script for editing in your editor of choice"
-  end
-  
+  description "Opens a script for editing in your editor of choice"
+  usage "rcli edit <installed script> [-hv]"
+
   def main
       if @params[:args].size != 1
         puts "ERROR: please provide a rcli app name to look up. Try 'rcli list' for a list of installed apps."
@@ -29,7 +28,7 @@ class EditCommand < Command
         exit
       end
 
-      exec "mate #{app_info['application_root']}"
+      exec "$EDITOR #{app_info['application_root']}"
     end
 
 end

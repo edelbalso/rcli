@@ -1,8 +1,6 @@
 class ListCommand  < Command
-  
-  def after_init
-    @description = "Lists all installed rcli programs"
-  end
+
+  description "Lists all installed rcli programs"
   
   def main()
     

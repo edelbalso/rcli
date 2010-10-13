@@ -4,10 +4,8 @@ class InstallCommand  < Command
   
   include Rcli::Installation
   
-  def after_init
-    @description = "Installs rcli to your system, or installs a specific rcli app"
-  end
-  
+  description "Installs rcli to your system, or installs a specific rcli app"
+
   def main()
     
     if $verbose
