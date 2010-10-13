@@ -16,10 +16,12 @@ Gem::Specification.new do |s|
   s.executables = ["rcli"]
   s.extra_rdoc_files = [
     "LICENSE",
+     "README.md",
      "README.rdoc"
   ]
   s.files = [
     "LICENSE",
+     "README.md",
      "README.rdoc",
      "Rakefile",
      "lib/commands/compile.rb",
