@@ -1,0 +1,6 @@
+#!/bin/bash
+
+joe gemspec
+gem build rcli.gemspec
+gem uninstall -x rcli
+gem install rcli-0.6.gem
