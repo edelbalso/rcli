@@ -5,4 +5,4 @@ global:
     hidden_dir_name: .rcli
     default_command: help
     editor: mate
-    description: Core rcli executable used to create install and manage rcli applications
+    description: rcli is used to create install and manage command-line applications
