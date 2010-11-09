@@ -1,7 +1,7 @@
 ### Core Libraries
 require 'rubygems'
 require 'text'
-require 'YAML'
+require 'yaml'
 require 'pp'
 require 'pathname'
 require 'highline/import'
