@@ -19,7 +19,7 @@ begin
     gem.executables = ['rcli']
     gem.require_paths = ['lib']
 
-    gem.files = FileList['lib/**/*.rb','README*', 'LICENSE', 'Rakefile', 'test/**/*.*', 'bin/**/*.rb'].to_a
+    gem.files = FileList['lib/config/*','lib/**/*.rb','README*', 'LICENSE', 'Rakefile', 'test/**/*.*', 'bin/**/*.rb'].to_a
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError

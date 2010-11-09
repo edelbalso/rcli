@@ -5,23 +5,21 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rcli}
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Eduardo Del Balso"]
-  s.date = %q{2010-10-12}
+  s.date = %q{2010-11-09}
   s.default_executable = %q{rcli}
   s.description = %q{This script creates, manages, installs, uninstalls and edits command-line ruby scripts. It also works as a useful library for building scripts.}
   s.email = %q{e.delbalso@gmail.com}
   s.executables = ["rcli"]
   s.extra_rdoc_files = [
     "LICENSE",
-     "README.md",
      "README.rdoc"
   ]
   s.files = [
     "LICENSE",
-     "README.md",
      "README.rdoc",
      "Rakefile",
      "lib/commands/compile.rb",
@@ -33,6 +31,7 @@ Gem::Specification.new do |s|
      "lib/commands/list.rb",
      "lib/commands/uninstall.rb",
      "lib/commands/version.rb",
+     "lib/config/application.yml",
      "lib/core/actions.rb",
      "lib/core/actions/create_file.rb",
      "lib/core/actions/empty_directory.rb",
